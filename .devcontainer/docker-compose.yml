@@ -36,11 +36,8 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: jonhdoe@gmail.com
       PGADMIN_DEFAULT_PASSWORD: geheim
-      PGADMIN_LISTEN_PORT: 8080
       PGADMIN_CONFIG_PROXY_X_HOST_COUNT: 1
       PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT: 1
-    ports:
-      - "8080:8080"
 
 volumes:
   postgres-data: {}
