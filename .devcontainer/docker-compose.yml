@@ -13,10 +13,12 @@ services:
   db:
     build:
       context: .
-      dockerfile: Dockerfile.db
+      dockerfile: .devcontainer/Dockerfile.db
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./osm-files:/osm-files
+      - ./devcontainer/initdb-postgis.sh:/docker-entrypoint-initdb.d/initdb-postgis.sh
     environment:
       POSTGRES_DB: app
       POSTGRES_USER: app_user
