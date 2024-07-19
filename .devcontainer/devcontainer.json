@@ -45,7 +45,6 @@
     "forwardPorts": [
         5000, 5432
     ],
-    "postCreateCommand": "pip install -r requirements.txt && chmod +x .devcontainer/import-osm.sh",
-    "postStartCommand": "docker-compose exec db bash .devcontainer/import-osm.sh",
+    "postCreateCommand": "pip install -r requirements.txt",
     "remoteUser": "vscode"
 }
