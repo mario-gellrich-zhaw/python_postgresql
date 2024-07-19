@@ -1,0 +1,51 @@
+{
+    "name": "msdocs-flask-postgresql-sample-app",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "analytic-signal.preview-pdf"
+    ],
+    "features": {
+        "ghcr.io/azure/azure-dev/azd:latest": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.azure-dev",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg"
+            ],
+            "settings": {
+                "sqltools.connections": [
+                    {
+                        "name": "Container database",
+                        "driver": "PostgreSQL",
+                        "previewLimit": 50,
+                        "server": "localhost",
+                        "port": 5432,
+                        "database": "app",
+                        "username": "app_user",
+                        "password": "app_password"
+                    }
+                ],
+                "python.pythonPath": "/usr/local/bin/python",
+                "python.languageServer": "Pylance",
+                "python.linting.enabled": true,
+                "python.linting.mypyEnabled": true,
+                "python.testing.pytestEnabled": true,
+                "python.formatting.provider": "black"
+            }
+        }
+    },
+    "forwardPorts": [
+        5000, 5432
+    ],
+    "postCreateCommand": "pip install -r requirements.txt && chmod +x .devcontainer/import-osm.sh",
+    "postStartCommand": "docker-compose exec db bash .devcontainer/import-osm.sh",
+    "remoteUser": "vscode"
+}
