@@ -13,11 +13,10 @@ services:
   db:
     build:
       context: .
-      dockerfile: .devcontainer/Dockerfile.db
+      dockerfile: Dockerfile.db
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./osm-files:/osm-files
     environment:
       POSTGRES_DB: app
       POSTGRES_USER: app_user
