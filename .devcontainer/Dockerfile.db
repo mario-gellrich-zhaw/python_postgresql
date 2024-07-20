@@ -2,7 +2,7 @@ FROM postgres:latest
 
 # Install PostGIS and osm2pgsql
 RUN apt-get update && \
-    apt-get install -y postgis postgresql-13-postgis-3 osm2pgsql && \
+    apt-get install -y postgis postgresql-13-postgis-3 osm2pgsql curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
