@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: .devcontainer/Dockerfile
     volumes:
       - ..:/workspace:cached
     command: sleep infinity
@@ -13,12 +13,11 @@ services:
   db:
     build:
       context: .
-      dockerfile: Dockerfile.db
+      dockerfile: .devcontainer/Dockerfile.db
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./osm-files:/osm-files
-      - initdb-postgis.sh:/docker-entrypoint-initdb.d/initdb-postgis.sh
+      - ./.devcontainer/initdb-postgis.sh:/docker-entrypoint-initdb.d/initdb-postgis.sh
     environment:
       POSTGRES_DB: app
       POSTGRES_USER: app_user
@@ -29,7 +28,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./osm-files:/osm-files
+      - ./.devcontainer/osm-files:/osm-files
     environment:
       PGDATABASE: app
       PGUSER: app_user
