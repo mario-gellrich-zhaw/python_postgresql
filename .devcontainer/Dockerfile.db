@@ -1,5 +1,3 @@
-# Dockerfile.db
-
 FROM postgres:latest
 
 # Install PostGIS and osm2pgsql
