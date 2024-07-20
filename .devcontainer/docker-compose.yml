@@ -24,3 +24,51 @@ services:
 
 volumes:
   postgres-data: {}
+
+
+
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    network_mode: service:db
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./osm-files:/osm-files
+      - ./.devcontainer/initdb-postgis.sh:/docker-entrypoint-initdb.d/initdb-postgis.sh
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+
+  osm2pgsql:
+    image: iboates/osm2pgsql:latest
+    depends_on:
+      - db
+    volumes:
+      - ./osm-files:/osm-files
+    environment:
+      PGDATABASE: app
+      PGUSER: app_user
+      PGPASSWORD: app_password
+      PGHOST: db
+    command: >
+      sh -c "
+      curl -L -o /osm-files/switzerland-latest.osm.pbf https://download.geofabrik.de/europe/switzerland-latest.osm.pbf &&
+      osm2pgsql -c -d $PGDATABASE -U $PGUSER -H $PGHOST --port=5432 --style /osm-files/default.style /osm-files/switzerland-latest.osm.pbf
+      "
+
+volumes:
+  postgres-data: {}
