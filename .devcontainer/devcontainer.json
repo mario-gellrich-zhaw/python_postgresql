@@ -41,6 +41,5 @@
 	"forwardPorts": [
 		5000, 5432
 	],
-	"postCreateCommand": "pip install -r requirements.txt",
-	// "remoteUser": "vscode"
+	"postCreateCommand": "pip install -r requirements.txt"
 }
