@@ -34,13 +34,7 @@
 						"username": "app_user",
 						"password": "app_password"
 					}
-				],
-				"python.pythonPath": "/usr/local/bin/python",
-				"python.languageServer": "Pylance",
-				"python.linting.enabled": true,
-				"python.linting.mypyEnabled": true,
-				"python.testing.pytestEnabled": true,
-				"python.formatting.provider": "black"
+				]
 			}
 		}
 	},
@@ -48,5 +42,5 @@
 		5000, 5432
 	],
 	"postCreateCommand": "pip install -r requirements.txt",
-	"remoteUser": "vscode"
+	// "remoteUser": "vscode"
 }
